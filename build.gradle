@@ -44,7 +44,7 @@ task genJaxb {
                 produces(dir: sourcesDir, includes: "**/*.java")
             }
 
-            javac(destdir: classesDir, source: 1.6, target: 1.6, debug: true,
+            javac(destdir: classesDir, source: 1.7, target: 1.7, debug: true,
                     debugLevel: "lines,vars,source",
                     classpath: configurations.jaxb.asPath) {
                 src(path: sourcesDir)
@@ -74,6 +74,7 @@ dependencyManagement {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.ws:spring-ws-core")
+    compile("org.apache.httpcomponents:httpclient")
     compile(files(genJaxb.classesDir).builtBy(genJaxb))
 
     jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"

@@ -18,12 +18,13 @@ public class Application {
 	@Bean
 	CommandLineRunner lookup(WeatherClient weatherClient) {
 		return args -> {
-			String zipCode = "94304";
+			String zipCode = "28269";
 
 			if (args.length > 0) {
 				zipCode = args[0];
 			}
 			GetCityForecastByZIPResponse response = weatherClient.getCityForecastByZip(zipCode);
+			weatherClient.printResponse(response);
 		};
 	}
 

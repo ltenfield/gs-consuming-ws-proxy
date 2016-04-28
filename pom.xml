@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.springframework</groupId>
-    <artifactId>gs-consuming-web-service</artifactId>
+    <groupId>org.osa</groupId>
+    <artifactId>gs-consuming-ws-proxy</artifactId>
     <version>0.1.0</version>
 
     <parent>
@@ -26,6 +26,10 @@
             <groupId>org.springframework.ws</groupId>
             <artifactId>spring-ws-core</artifactId>
         </dependency>
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		</dependency>
     </dependencies>
 
     <build>
@@ -36,9 +40,10 @@
             </plugin>
             <!-- tag::wsdl[] -->
             <plugin>
+                <!-- INFO: https://github.com/highsource/maven-jaxb2-plugin/wiki/User-Guide -->
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.12.3</version>
+                <version>0.13.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -50,8 +55,16 @@
                     <schemaLanguage>WSDL</schemaLanguage>
                     <generatePackage>hello.wsdl</generatePackage>
                     <schemas>
-                        <schema>
+                        <!--<schema>
                             <url>http://wsf.cdyne.com/WeatherWS/Weather.asmx?wsdl</url>
+                        </schema> -->
+                        <schema>
+                            <fileset>
+                                <directory>${basedir}/src/main/resources</directory>
+                                <includes>
+                                    <include>*.wsdl</include>
+                                </includes>
+                            </fileset>
                         </schema>
                     </schemas>
                 </configuration>
